@@ -5,8 +5,10 @@
     <meta name="keywords" content="stuff, to, help, search, engines, not" />
     <meta name="description" content="What this page is about." />
     <meta name="title" content="Webcam viewer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Webcam viewer</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
   </head>
   <body>
     <div id="selector">
@@ -25,5 +27,19 @@
       <video autoplay="false" id="videoElement"></video>
     </div>
     <script src="./app.js"></script>
+    <script>
+      // Register service worker for offline functionality
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then(registration => {
+              console.log('Service Worker registered successfully:', registration.scope);
+            })
+            .catch(error => {
+              console.log('Service Worker registration failed:', error);
+            });
+        });
+      }
+    </script>
   </body>
 </html>
